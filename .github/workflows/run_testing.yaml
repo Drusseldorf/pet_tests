@@ -24,14 +24,8 @@ jobs:
         with:
           python-version: "3.11"
       - name: Set up secrets
-        env:
-          BASE_SETTINGS: ${{ secrets.base }}
-        run: echo "export BASE_SETTINGS='$BASE_SETTINGS'" >> $GITHUB_ENV
+        run: echo "export BASE_SETTINGS='${{ secrets.base }}'" >> $GITHUB_ENV
       - name: install requirements
         run: pip install -r requirements.txt
-      - name: first_test
-        if: "github.event.inputs.deployment_target == 'first_test'"
-        run: pytest tests
-      - name: second_test
-        if: "github.event.inputs.deployment_target == 'second_test'"
+      - name: Run tests
         run: pytest tests
