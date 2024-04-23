@@ -19,13 +19,24 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      - name: setup Python
+
+      - name: Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: "3.11"
+
       - name: Set up secrets
-        run: echo "export BASE_SETTINGS='${{ secrets.base }}'" >> $GITHUB_ENV
-      - name: install requirements
+        env:
+          ENV__API__BASE_HOST: ${{ secrets.ENV__API__BASE_HOST }}
+          ENV__API__OPERATORS__USER_NAME: ${{ secrets.ENV__API__OPERATORS__USER_NAME }}
+          ENV__API__OPERATORS__OPERATOR_TOKEN: ${{ secrets.ENV__API__OPERATORS__OPERATOR_TOKEN }}
+        run: |
+          echo "export ENV__API__BASE_HOST='${ENV__API__BASE_HOST}'" >> $GITHUB_ENV
+          echo "export ENV__API__OPERATORS__USER_NAME='${ENV__API__OPERATORS__USER_NAME}'" >> $GITHUB_ENV
+          echo "export ENV__API__OPERATORS__OPERATOR_TOKEN='${ENV__API__OPERATORS__OPERATOR_TOKEN}'" >> $GITHUB_ENV
+
+      - name: Install requirements
         run: pip install -r requirements.txt
+
       - name: Run tests
         run: pytest tests
