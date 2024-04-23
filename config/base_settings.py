@@ -33,10 +33,10 @@ class ProjectSettings(YamlBaseSettings):
         file_secret_settings,
     ):
         return (
+            dotenv_settings,
             file_secret_settings,
             env_settings,
             init_settings,
-            dotenv_settings,
             YamlConfigSettingsSource(settings_cls)
         )
 
