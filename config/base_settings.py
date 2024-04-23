@@ -26,11 +26,12 @@ class ProjectSettings(YamlBaseSettings):
     @classmethod
     def settings_customise_sources(
         cls,
+        dotenv_settings,
+        env_settings,
         settings_cls: BaseSettings,
         init_settings,
         env_settings,
-        dotenv_settings,
-        file_secret_settings,
+        file_secret_settings
     ):
         return (
             file_secret_settings,
