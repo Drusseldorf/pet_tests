@@ -31,9 +31,9 @@ jobs:
           ENV__API__OPERATORS__USER_NAME: ${{ secrets.ENV__API__OPERATORS__USER_NAME }}
           ENV__API__OPERATORS__OPERATOR_TOKEN: ${{ secrets.ENV__API__OPERATORS__OPERATOR_TOKEN }}
         run: |
-          echo "export ENV__API__BASE_HOST='${ENV__API__BASE_HOST}'" >> $GITHUB_ENV
-          echo "export ENV__API__OPERATORS__USER_NAME='${ENV__API__OPERATORS__USER_NAME}'" >> $GITHUB_ENV
-          echo "export ENV__API__OPERATORS__OPERATOR_TOKEN='${ENV__API__OPERATORS__OPERATOR_TOKEN}'" >> $GITHUB_ENV
+          echo "ENV__API__BASE_HOST=${{ secrets.ENV__API__BASE_HOST }}" >> config/local.env
+          echo "ENV__API__OPERATORS__USER_NAME=${{ secrets.ENV__API__OPERATORS__USER_NAME }}" >> config/local.env
+          echo "ENV__API__OPERATORS__OPERATOR_TOKEN=${{ secrets.ENV__API__OPERATORS__OPERATOR_TOKEN }}" >> config/local.env
 
       - name: Install requirements
         run: pip install -r requirements.txt
