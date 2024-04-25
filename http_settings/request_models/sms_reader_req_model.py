@@ -10,7 +10,7 @@ class SmsReaderModel(BaseModel):
     device_id: str = SMSReaderConstants.DEVICE_ID
     text: str = SMSReaderConstants.TEXT
     operator_token: str = base_api_settings.api.operators.operator_token
-    requisite: str
+    requisite: str | None = None
 
     def set_amount_and_requisite(self, amount: str, requisite: str):
         self.text = self.text.format(amount, requisite[-4:])

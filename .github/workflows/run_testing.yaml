@@ -1,16 +1,7 @@
 name: Automated tests
 
 on:
-  workflow_dispatch:
-    inputs:
-      deployment_target:
-        description: Choose target
-        required: true
-        default: second_test
-        type: choice
-        options:
-          - first_test
-          - second_test
+  workflow_dispatch
 
 jobs:
   test:
@@ -27,16 +18,14 @@ jobs:
 
       - name: Set up secrets
         env:
-          ENV__API__BASE_HOST: ${{ secrets.ENV__API__BASE_HOST }}
-          ENV__API__OPERATORS__USER_NAME: ${{ secrets.ENV__API__OPERATORS__USER_NAME }}
           ENV__API__OPERATORS__OPERATOR_TOKEN: ${{ secrets.ENV__API__OPERATORS__OPERATOR_TOKEN }}
+          ENV__API__COMPANY__COMPANY_TOKEN: ${{ secrets.ENV__API__COMPANY__COMPANY_TOKEN }}
         run: |
-          echo "ENV__API__BASE_HOST=${{ secrets.ENV__API__BASE_HOST }}" >> config/local.env
-          echo "ENV__API__OPERATORS__USER_NAME=${{ secrets.ENV__API__OPERATORS__USER_NAME }}" >> config/local.env
           echo "ENV__API__OPERATORS__OPERATOR_TOKEN=${{ secrets.ENV__API__OPERATORS__OPERATOR_TOKEN }}" >> config/local.env
+          echo "ENV__API__COMPANY__COMPANY_TOKEN=${{ secrets.ENV__API__COMPANY__COMPANY_TOKEN }}" >> config/local.env
 
       - name: Install requirements
         run: pip install -r requirements.txt
 
       - name: Run tests
-        run: pytest -v tests/test_actions_env.py::test_show_env
+        run: pytest -v tests/sms_push_reader/test_sms_reader.py::test_sms_reader

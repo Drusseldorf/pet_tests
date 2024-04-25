@@ -3,6 +3,7 @@ from requests import Response
 from typing import Optional
 
 from config.base_settings import base_api_settings
+from utils.logger import logger
 
 
 class HttpClient:
@@ -15,7 +16,8 @@ class HttpClient:
         self.headers = headers
 
     def execute_request(self, method, **kwargs):
-        response = getattr(requests, method)(url=f'{self.host}{self.path}', headers=self.headers, **kwargs)
+        response = getattr(requests, method)(url=f'{self.host}{self.path}', headers=self.headers, json=kwargs)
+        logger.write_log('INFO', f'{method.upper()} {self.host+self.path} {response}')
         return response
 
     def post(self, **kwargs) -> Response:

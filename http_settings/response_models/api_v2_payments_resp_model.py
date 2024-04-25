@@ -27,7 +27,7 @@ class Payment(BaseModel):
     successUrl: str
     customerFullName: str | None = None
     customerRequisite: str | None = None
-    timeLeft: int
+    timeLeft: int | float
     expiresAt: str
     createdAt: str
     declinedByClient: bool

@@ -14,3 +14,8 @@ class SMSReaderConstants:
     SENDER: str = 'some_sender'
     DEVICE_ID: str = '123123123'
     TEXT: str = 'Перевод на сумму {} по карте {}'
+    HEADERS: dict = {'Content-Type': 'application/json'}
+
+
+class Status:
+    SUCCESS: str = 'success'

@@ -1,4 +1,6 @@
+from pydantic import ValidationError
 from requests import Response
+from utils.logger import logger
 
 
 def change_value(model, field, new_value):
@@ -8,4 +10,7 @@ def change_value(model, field, new_value):
 
 
 def get_validated_model(response: Response, model):
-    return model.model_validate(response.json())
+    try:
+        return model.model_validate(response.json())
+    except ValidationError as e:
+        logger.write_log('ERROR', f'ValidationError: {e}')
