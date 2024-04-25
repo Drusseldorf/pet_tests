@@ -1,7 +1,5 @@
-from config.base_settings import project_settings
+from config.base_settings import base_api_settings
 
 
 def test_show_env():
-    qwe = project_settings.api.operators.user_name
-    print(qwe)
-    assert qwe == 'andkor_oper1@gmail.com_ENV111'
+    print('\n', base_api_settings.api)

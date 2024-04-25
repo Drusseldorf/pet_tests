@@ -1,0 +1,13 @@
+api:
+  base_host: https://staging2.dfpay.dev
+  paths:
+    sms_reader_path: /api/webhooks/macrodroid_sms
+    push_reader_path: /api/webhooks/macrodroid_push
+    pay_in_h2h_path: /api/v1/h2h/payments
+    api_v2_payment: /api/v2/payments/
+  company:
+    company_id: 935be5f9-7e18-45d3-94ea-c59f663b490d
+  defoult_data:
+    defoult_method: andkorIN
+    defoult_currency: RUB
+    defoult_amount: 300000
