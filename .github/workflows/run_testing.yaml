@@ -28,4 +28,4 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run tests
-        run: pytest tests/sms_push_reader/test_sms_reader.py::TestSMSReader::test_sms_reader
+        run: pytest -s -v tests/sms_push_reader/test_sms_reader.py::TestSMSReader::test_sms_reader

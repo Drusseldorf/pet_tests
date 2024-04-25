@@ -8,7 +8,7 @@ class Logger:
 
     def set_up(self):
         logging.basicConfig(level=logging.INFO,
-                            format='%(asctime)s - %(levelname)s - %(message)s',
+                            format='\n%(asctime)s - %(levelname)s - %(message)s',
                             stream=sys.stdout)
 
     def write_log(self, log_type, *args):
