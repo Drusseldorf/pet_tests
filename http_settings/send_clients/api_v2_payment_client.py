@@ -1,4 +1,5 @@
 import time
+import allure
 
 from config.base_settings import base_api_settings
 from http_settings.send_clients.http_client import HttpClient
@@ -15,6 +16,3 @@ class ApiV2PaymentClient(HttpClient):
         time.sleep(1.5)
         response = self.get()
         return get_validated_model(response, ApiV2ResponseModel)
-
-
-api_v2_get_payment = ApiV2PaymentClient()

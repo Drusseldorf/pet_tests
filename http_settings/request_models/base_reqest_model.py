@@ -32,4 +32,4 @@ class BaseRequestPayInModel(BaseModel):
         self.signature = calculate_signature(base_data_dict, token)
 
 
-base_request_pay_in_model = BaseRequestPayInModel()
+base_request_pay_in_model = BaseRequestPayInModel().model_dump()

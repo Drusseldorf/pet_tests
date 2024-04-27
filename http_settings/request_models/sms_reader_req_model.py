@@ -12,9 +12,5 @@ class SmsReaderModel(BaseModel):
     operator_token: str = base_api_settings.api.operators.operator_token
     requisite: str | None = None
 
-    def set_amount_and_requisite(self, amount: str, requisite: str):
-        self.text = self.text.format(amount, requisite[-4:])
-        self.requisite = requisite
 
-
-sms_reader_model = SmsReaderModel()
+sms_reader_model = SmsReaderModel().model_dump()

@@ -1,18 +1,21 @@
+import allure
 from http_settings.request_models.sms_reader_req_model import sms_reader_model
-from http_settings.send_clients.sms_reader_client import sms_reader
-from http_settings.send_clients.api_v2_payment_client import api_v2_get_payment
 from data.constants import Status
 
 
+@allure.epic('SMS reader')
 class TestSMSReader:
 
-    def test_sms_reader(self, send_payin_h2h, order_status):
+    @allure.title('Считывание по последним 4-м цифрам реквизита')
+    def test_sms_reader(self,
+                        send_payin_h2h,
+                        order_status,
+                        prepare_sms_reader_model,
+                        payment_status_client,
+                        sms_reader_client):
 
-        sms_reader_model.set_amount_and_requisite(order_status.payment.amount,
-                                                  order_status.payment.paymentRequisite.requisite)
+        sms_reader_client.send(sms_reader_model)
+        status_after_request = payment_status_client.send().payment.status
 
-        sms_reader.send(**sms_reader_model.model_dump())
-
-        status_after_request = api_v2_get_payment.send().payment.status
-
-        assert status_after_request == Status.SUCCESS
+        assert status_after_request == Status.SUCCESS, \
+            f'ORDER ID = {order_status.payment.id}'

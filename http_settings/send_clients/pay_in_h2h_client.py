@@ -1,4 +1,3 @@
-from http_settings.request_models.base_reqest_model import base_request_pay_in_model
 from http_settings.send_clients.http_client import HttpClient
 from config.base_settings import base_api_settings
 from data.constants import PayInH2HConstants
@@ -11,9 +10,6 @@ class PayInH2HClient(HttpClient):
         super().__init__(path=base_api_settings.api.paths.pay_in_h2h_path,
                          headers=PayInH2HConstants.HEADERS)
 
-    def send(self, **kwargs) -> PayInH2HResponse:
-        response = self.post(**kwargs)
+    def send(self, payload) -> PayInH2HResponse:
+        response = self.post(payload)
         return get_validated_model(response, PayInH2HResponse)
-
-
-pay_in_h2h = PayInH2HClient()

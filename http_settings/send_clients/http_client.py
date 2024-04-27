@@ -1,9 +1,10 @@
+import allure
 import requests
 from requests import Response
 from typing import Optional
 
 from config.base_settings import base_api_settings
-from utils.logger import logger
+from utils.logger import *
 
 
 class HttpClient:
@@ -15,13 +16,15 @@ class HttpClient:
         self.path = path
         self.headers = headers
 
-    def execute_request(self, method, **kwargs):
-        response = getattr(requests, method)(url=f'{self.host}{self.path}', headers=self.headers, json=kwargs)
-        logger.write_log('INFO', f'{method.upper()} {self.host+self.path} {response}')
+    def execute_request(self, method, payload=None):
+        url = f'{self.host}{self.path}'
+        with allure.step(f'Отправка запроса {url}'):
+            response = getattr(requests, method)(url=url, headers=self.headers, json=payload)
+        log.write(Level.INFO, method.upper(), url, response.status_code)
         return response
 
-    def post(self, **kwargs) -> Response:
-        return self.execute_request('post', **kwargs)
+    def post(self, payload) -> Response:
+        return self.execute_request('post', payload)
 
-    def get(self, **kwargs) -> Response:
-        return self.execute_request('get', **kwargs)
+    def get(self) -> Response:
+        return self.execute_request('get')
