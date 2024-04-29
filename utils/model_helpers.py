@@ -3,12 +3,6 @@ from requests import Response
 from utils.logger import *
 
 
-def change_value(model, field, new_value):
-    setattr(model, field, new_value)
-    if hasattr(model, 'sign') and callable(getattr(model, 'sign')):
-        model.sign()
-
-
 def get_validated_model(response: Response, model):
     try:
         return model.model_validate(response.json())

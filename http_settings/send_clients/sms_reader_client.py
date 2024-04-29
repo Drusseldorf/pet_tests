@@ -1,5 +1,3 @@
-import allure
-
 from http_settings.send_clients.http_client import HttpClient
 from config.base_settings import base_api_settings
 from data.constants import SMSReaderConstants

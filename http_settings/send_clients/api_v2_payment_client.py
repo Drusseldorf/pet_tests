@@ -1,5 +1,4 @@
 import time
-import allure
 
 from config.base_settings import base_api_settings
 from http_settings.send_clients.http_client import HttpClient

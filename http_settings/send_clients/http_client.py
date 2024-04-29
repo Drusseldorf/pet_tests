@@ -16,7 +16,7 @@ class HttpClient:
         self.path = path
         self.headers = headers
 
-    def execute_request(self, method, payload=None):
+    def __execute_request(self, method, payload=None):
         url = f'{self.host}{self.path}'
         with allure.step(f'Отправка запроса {url}'):
             response = getattr(requests, method)(url=url, headers=self.headers, json=payload)
@@ -24,7 +24,7 @@ class HttpClient:
         return response
 
     def post(self, payload) -> Response:
-        return self.execute_request('post', payload)
+        return self.__execute_request('post', payload)
 
     def get(self) -> Response:
-        return self.execute_request('get')
+        return self.__execute_request('get')

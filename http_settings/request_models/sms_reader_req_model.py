@@ -11,6 +11,3 @@ class SmsReaderModel(BaseModel):
     text: str = SMSReaderConstants.TEXT
     operator_token: str = base_api_settings.api.operators.operator_token
     requisite: str | None = None
-
-
-sms_reader_model = SmsReaderModel().model_dump()

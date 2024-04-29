@@ -1,5 +1,6 @@
 import allure
-from http_settings.request_models.sms_reader_req_model import sms_reader_model
+from assertpy import assert_that
+
 from data.constants import Status
 
 
@@ -12,10 +13,12 @@ class TestSMSReader:
                         order_status,
                         prepare_sms_reader_model,
                         payment_status_client,
-                        sms_reader_client):
+                        sms_reader_client,
+                        sms_reader_model):
 
         sms_reader_client.send(sms_reader_model)
         status_after_request = payment_status_client.send().payment.status
 
-        assert status_after_request == Status.SUCCESS, \
-            f'ORDER ID = {order_status.payment.id}'
+        assert_that(status_after_request).\
+            described_as(f'ORDER ID = {order_status.payment.id}').\
+            is_equal_to(Status.SUCCESS)

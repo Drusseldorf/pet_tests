@@ -1,25 +1,21 @@
 import logging
-import sys
+from enum import Enum
 
 
-class Level:
-    DEBUG = 'debug'
-    INFO = 'info'
-    ERROR = 'error'
+class Level(Enum):
+    DEBUG = logging.DEBUG
+    INFO = logging.INFO
+    ERROR = logging.ERROR
 
 
 class Logger:
     def __init__(self):
         logging.basicConfig(level=logging.INFO,
-                            format='\n%(asctime)s - %(levelname)s - %(message)s',
-                            stream=sys.stdout)
+                            format='\n%(asctime)s - %(levelname)s - %(message)s')
 
     @staticmethod
-    def write(level, *args):
-        try:
-            getattr(logging, level)(' '.join(map(str, args)))
-        except AttributeError as e:
-            logging.error(f'AttributeError: No such logging level as "{level}": {e}')
+    def write(level: Level, *args):
+        getattr(logging, level.name.lower())(' '.join(map(str, args)))
 
 
 log = Logger()

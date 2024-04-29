@@ -1,35 +1,29 @@
+import random as r
 from pydantic import BaseModel
 import uuid
 
 from config.base_settings import base_api_settings
-from utils.signature import calculate_signature
+from utils.mixins.model_mixins import SugnatureMixin
 from data.constants import PayInH2HConstants
 
 
-class BaseRequestPayInModel(BaseModel):
+class BaseRequestPayInModel(BaseModel, SugnatureMixin):
+    def __init__(self):
+        super().__init__()
+        self.external_id = str(uuid.uuid4())
+        self.order_number = str(uuid.uuid4())
+        self.client_id = str(uuid.uuid4())
+        self.amount = r.randint(300, 50000) * 100
+        self.sign()
+
     company_id: str = base_api_settings.api.company.company_id
-    external_id: str = str(uuid.uuid4())
-    order_number: str = str(uuid.uuid4())
     amount: int = base_api_settings.api.defoult_data.defoult_amount
     fail_url: str = PayInH2HConstants.FAIL_URL
     success_url: str = PayInH2HConstants.SUCCESS_URL
     callback_url: str = PayInH2HConstants.CALLBACK_URL
     currency: str = base_api_settings.api.defoult_data.defoult_currency
-    client_id: str = str(uuid.uuid4())
     direct_method: str = base_api_settings.api.defoult_data.defoult_method
+    external_id: str | None = None
+    order_number: str | None = None
+    client_id: str | None = None
     signature: str = ''
-
-    def __init__(self):
-        super().__init__()
-        self.sign()
-
-    def sign(self):
-        amount = str(self.amount)
-        base_data_dict = self.model_dump(exclude_none=True)
-        del base_data_dict['signature']
-        base_data_dict['amount'] = amount
-        token = base_api_settings.api.company.company_token
-        self.signature = calculate_signature(base_data_dict, token)
-
-
-base_request_pay_in_model = BaseRequestPayInModel().model_dump()
