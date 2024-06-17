@@ -12,7 +12,7 @@ class PayInH2HConstants:
 class SMSReaderConstants:
     ID: str = '123321'
     SENDER: str = 'some_sender'
-    DEVICE_ID: str = '123123123'
+    DEVICE_ID: str = 'f2f7a6a4c66195e652e17673'
     TEXT: str = 'Перевод на сумму {} по карте {}'
     HEADERS: dict = {'Content-Type': 'application/json'}
 
