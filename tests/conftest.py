@@ -1,10 +1,10 @@
 import pytest
 
 from http_settings.request_models.sms_reader_req_model import SmsReaderModel
-from http_settings.send_clients.pay_in_h2h_client import PayInH2HClient
+from http_settings.clients.pay_in_h2h_client import PayInH2HClient
 from http_settings.request_models.base_reqest_model import BaseRequestPayInModel
-from http_settings.send_clients.api_v2_payment_client import ApiV2PaymentClient
-from http_settings.send_clients.sms_reader_client import SmsReaderClient
+from http_settings.clients.api_v2_payment_client import ApiV2PaymentClient
+from http_settings.clients.sms_reader_client import SmsReaderClient
 from utils.model_helpers import set_amount_and_requisite
 
 

@@ -1,7 +1,7 @@
 import time
 
 from config.base_settings import base_api_settings
-from http_settings.send_clients.http_client import HttpClient
+from http_settings.clients.http_client import HttpClient
 from http_settings.response_models.api_v2_payments_resp_model import ApiV2ResponseModel
 from utils.model_helpers import get_validated_model
 
